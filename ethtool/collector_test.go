@@ -247,3 +247,65 @@ func TestGetDomStats(t *testing.T) {
 		})
 	})
 }
+
+func TestGetDriverInfo(t *testing.T) {
+
+	Convey("GetDriverInfo", t, func() {
+		executor := &executorMock{}
+		sut := &ToolCollector{Tool: executor}
+
+		Convey("succefully get driver name", func() {
+			executor.On("Execute", mock.AnythingOfType("string"),
+				mock.AnythingOfType("string")).Return([]string{
+				"header",
+				"   driver : drv0 ",
+				"footer"}, nil)
+
+			dut, dutErr := sut.GetDriverInfo("abc")
+
+			Convey("returns parsed driver name", func() {
+				So(dut, ShouldEqual, "drv0")
+			})
+
+			Convey("returns no error", func() {
+				So(dutErr, ShouldBeNil)
+			})
+		})
+
+		Convey("execution failed", func() {
+			executor.On("Execute", mock.AnythingOfType("string"),
+				mock.AnythingOfType("string")).Return(nil, errors.New("x"))
+
+			_, dutErr := sut.GetDriverInfo("abc")
+
+			Convey("returns error", func() {
+				So(dutErr, ShouldNotBeNil)
+			})
+		})
+
+		Convey("empty execution output", func() {
+			executor.On("Execute", mock.AnythingOfType("string"),
+				mock.AnythingOfType("string")).Return([]string{}, errors.New("No output"))
+
+			_, dutErr := sut.GetDriverInfo("abc")
+
+			Convey("returns error", func() {
+				So(dutErr, ShouldNotBeNil)
+			})
+
+		})
+
+		Convey("incorrect execution output", func() {
+			executor.On("Execute", mock.AnythingOfType("string"),
+				mock.AnythingOfType("string")).Return([]string{
+				"xxx"}, nil)
+
+			_, dutErr := sut.GetDriverInfo("abc")
+
+			Convey("returns error", func() {
+				So(dutErr, ShouldNotBeNil)
+			})
+
+		})
+	})
+}

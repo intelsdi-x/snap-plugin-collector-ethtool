@@ -49,9 +49,9 @@ func (tc *ToolCollector) GetDriverInfo(iface string) (string, error) {
 
 	for _, line := range lines {
 		s := strings.ToLower(line)
-		if strings.Contains(s, "driver:") {
-			match := driverRegex.FindStringSubmatch(s)
-			return match[len(match)-1], nil
+		match := driverRegex.FindStringSubmatch(s)
+		if match != nil {
+			return match[1], nil
 		}
 	}
 
