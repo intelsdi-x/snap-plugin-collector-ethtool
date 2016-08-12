@@ -85,7 +85,8 @@ func (mc *metricCollectorImpl) ValidMetrics() (map[metricSource][]string, error)
 
 		driverName, err := mc.Ethtool.GetDriverInfo(iface.Name)
 		if err != nil {
-			return nil, err
+			fmt.Fprintf(os.Stderr, "Error getting driver info for %+v, %+v\n", iface.Name, err)
+			continue
 		}
 
 		result[metricSource{driver: driverName, device: iface.Name, kind: COLLECT_NIC}], err = getKeys(mc.Ethtool.GetNicStats(iface.Name))

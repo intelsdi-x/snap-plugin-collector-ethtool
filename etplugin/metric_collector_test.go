@@ -96,10 +96,12 @@ func TestValidMetrics(t *testing.T) {
 					}, nil
 				}
 
-				_, dutErr := sut.ValidMetrics()
+				sut.ValidMetrics()
 
-				Convey("returns error", func() {
-					So(dutErr, ShouldNotBeNil)
+				Convey("skips that interface", func() {
+					collector.AssertNotCalled(t, "GetNicStats", "invalid0")
+					collector.AssertNotCalled(t, "GetRegDump", "invalid0")
+					collector.AssertNotCalled(t, "GetDomStats", "invalid0")
 				})
 			})
 

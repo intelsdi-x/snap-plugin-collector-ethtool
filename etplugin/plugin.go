@@ -29,7 +29,7 @@ const (
 	// Name of plugin
 	Name = "ethtool"
 	// Version of plugin
-	Version = 4
+	Version = 5
 	// Type of plugin
 	Type = plugin.CollectorPluginType
 )
