@@ -1,4 +1,10 @@
 .travis.yml:
+  sudo: true
+  addons:
+    apt:
+      packages:
+      - ethtool
+      - net-tools
   deploy:
     access_key_id: AKIAINMB43VSSPFZISAA
     secret_access_key:
