@@ -1,0 +1,9 @@
+name: ethtool
+type: collector
+maintainer: core
+license: Apache-2.0
+description: "Collect ethtool interface statistics."
+badge:
+  - "[![Build Status](https://travis-ci.org/intelsdi-x/snap-plugin-collector-ethtool.svg?branch=master)](https://travis-ci.org/intelsdi-x/snap-plugin-collector-ethtool)"
+ci:
+  - https://travis-ci.org/intelsdi-x/snap-plugin-collector-ethtool
