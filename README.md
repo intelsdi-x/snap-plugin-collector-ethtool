@@ -5,7 +5,7 @@ This plugin uses ethtool to gather interface statistics. 																						C
 * `ethtool -d`, register dump
 * `ethtool -m`, digital optical monitoring
 
-It's used in the [snap framework](http://github.com:intelsdi-x/snap).
+It's used in the [Snap framework](http://github.com:intelsdi-x/snap).
 
 1. [Getting Started](#getting-started)
   * [System Requirements](#system-requirements)
@@ -35,30 +35,31 @@ All OSs currently supported by plugin:
 * Linux/amd64
 
 ## Installation
-You can get the pre-built binaries for your OS and architecture at snap's [GitHub Releases](https://github.com/intelsdi-x/snap/releases) page. Download the plugins package from the latest release, unzip and store in a path you want `snapd` to access.
+You can get the pre-built binaries for your OS and architecture at Snap's [GitHub Releases](https://github.com/intelsdi-x/snap/releases) page. Download the plugins package from the latest release, unzip and store in a path you want `snapd` to access.
 
 ![download-snap-plugin-release](http://i.giphy.com/3o7WTFsGiVkEVZ3adq.gif)
 
 Then, get started with the [snap framework](https://github.com/intelsdi-x/snap/blob/master/README.md#getting-started).
 
 ### To build the plugin binary yourself:
-Fork https://github.com/intelsdi-x/snap-plugin-collector-ethtool  
+Fork https://github.com/intelsdi-x/snap-plugin-collector-ethtool
 Clone repo into `$GOPATH/src/github.com/intelsdi-x/`:
 
 ```
 $ git clone https://github.com/<yourGithubID>/snap-plugin-collector-ethtool.git
 ```
 
-Ensure `$SNAP_PATH` is exported in order to build locally:
+Ensure `$SNAP_PATH` is exported in order to build locally, e.g.:
+
 ```
-export SNAP_PATH=$GOPATH/src/github.com/intelsdi-x/snap/build
+export SNAP_PATH=$GOPATH/src/github.com/intelsdi-x/snap/build/linux/x86_64
 ```
 
 Build the plugin by running make within the cloned repo:
 ```
 $ make
 ```
-This builds the plugin in `/build/rootfs/`
+This builds the plugin in `/build/`
 
 
 ## Documentation
@@ -93,9 +94,8 @@ As we launch this plugin, we have a few items in mind for the next release:
 If you have a feature request, please add it as an [issue](https://github.com/intelsdi-x/snap-plugin-collector-ethtool/issues).
 
 ## Community Support
-This repository is one of **many** plugins in **snap**, a powerful telemetry framework. The full project is at http://github.com:intelsdi-x/snap.
-To reach out on other use cases, visit:
-* [Snap Gitter channel](https://gitter.im/intelsdi-x/snap)
+This repository is one of **many** plugins in **Snap**, a powerful telemetry framework. The full project is at http://github.com:intelsdi-x/snap.
+To reach out on other use cases, visit [Slack](http://slack.snap-telemetry.io).
 
 ## Contributing
 We love contributions!
