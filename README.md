@@ -1,4 +1,4 @@
-# snap collector plugin - ethtool
+# Snap collector plugin - ethtool
 
 This plugin uses ethtool to gather interface statistics. 																						Current version exposes stats available using ethtool given by below commands:
 * `ethtool -S`, interface statistics
@@ -35,13 +35,12 @@ All OSs currently supported by plugin:
 * Linux/amd64
 
 ## Installation
-You can get the pre-built binaries for your OS and architecture at Snap's [GitHub Releases](https://github.com/intelsdi-x/snap/releases) page. Download the plugins package from the latest release, unzip and store in a path you want `snapd` to access.
+#### Download the plugin binary:
 
-![download-snap-plugin-release](http://i.giphy.com/3o7WTFsGiVkEVZ3adq.gif)
+You can get the pre-built binaries for your OS and architecture from the plugin's [GitHub Releases](https://github.com/intelsdi-x/snap-plugin-collector-ethtool/releasess) page. Download the plugin from the latest release and load it into `snapd` (`/opt/snap/plugins` is the default location for Snap packages).
 
-Then, get started with the [snap framework](https://github.com/intelsdi-x/snap/blob/master/README.md#getting-started).
+#### To build the plugin binary:
 
-### To build the plugin binary yourself:
 Fork https://github.com/intelsdi-x/snap-plugin-collector-ethtool
 Clone repo into `$GOPATH/src/github.com/intelsdi-x/`:
 
@@ -49,17 +48,11 @@ Clone repo into `$GOPATH/src/github.com/intelsdi-x/`:
 $ git clone https://github.com/<yourGithubID>/snap-plugin-collector-ethtool.git
 ```
 
-Ensure `$SNAP_PATH` is exported in order to build locally, e.g.:
-
-```
-export SNAP_PATH=$GOPATH/src/github.com/intelsdi-x/snap/build/linux/x86_64
-```
-
-Build the plugin by running make within the cloned repo:
+Build the Snap ethtool plugin by running make within the cloned repo:
 ```
 $ make
 ```
-This builds the plugin in `/build/`
+This builds the plugin in `./build/`
 
 
 ## Documentation
@@ -84,6 +77,53 @@ Metrics are available in namespace:
 *	`/intel/net/<driver name>/<device name>/reg/<metric name>` (from cmd `ethtool -d`, register dump)
 *	`/intel/net/<driver name>/<device name>/dom/<metric name>` (from cmd `ethtool -m`, digital optical monitoring)
 
+### Examples
+
+Example of running Snap ethtool collector and writing data to file.
+
+Ensure [Snap daemon is running](https://github.com/intelsdi-x/snap#running-snap):
+* initd: `service snap-telemetry start`
+* systemd: `systemctl start snap-telemetry`
+* command line: `snapd -l 1 -t 0 &`
+
+Download and load Snap plugins:
+```
+$ wget http://snap.ci.snap-telemetry.io/plugins/snap-plugin-collector-ethtool/latest/linux/x86_64/snap-plugin-collector-ethtool
+$ wget http://snap.ci.snap-telemetry.io/plugins/snap-plugin-publisher-file/latest/linux/x86_64/snap-plugin-publisher-file
+$ chmod 755 snap-plugin-*
+$ snapctl plugin load snap-plugin-collector-ethtool
+$ snapctl plugin load snap-plugin-publisher-file
+```
+
+See all available metrics:
+```
+$ snapctl metric list
+```
+
+Download an [example task file](https://github.com/intelsdi-x/snap-plugin-collector-ethtool/blob/master/examples/tasks/) and load it:
+```
+$ curl -sfLO https://raw.githubusercontent.com/intelsdi-x/snap-plugin-collector-ethtool/master/examples/tasks/ethtool-file.json
+$ snapctl task create -t ethtool-file.json
+Using task manifest to create task
+Task created
+ID: 480323af-15b0-4af8-a526-eb2ca6d8ae67
+Name: Task-480323af-15b0-4af8-a526-eb2ca6d8ae67
+State: Running
+```
+
+See realtime output from `snapctl task watch <task_id>` (CTRL+C to exit)
+```
+$ snapctl task watch 480323af-15b0-4af8-a526-eb2ca6d8ae67
+```
+
+This data is published to a file `/tmp/published_netstats` per task specification
+
+Stop task:
+```
+$ snapctl task stop 480323af-15b0-4af8-a526-eb2ca6d8ae67
+Task stopped:
+ID: 480323af-15b0-4af8-a526-eb2ca6d8ae67
+```
 
 ### Roadmap
 As we launch this plugin, we have a few items in mind for the next release:
