@@ -37,7 +37,7 @@ All OSs currently supported by plugin:
 ## Installation
 #### Download the plugin binary:
 
-You can get the pre-built binaries for your OS and architecture from the plugin's [GitHub Releases](https://github.com/intelsdi-x/snap-plugin-collector-ethtool/releasess) page. Download the plugin from the latest release and load it into `snapd` (`/opt/snap/plugins` is the default location for Snap packages).
+You can get the pre-built binaries for your OS and architecture from the plugin's [GitHub Releases](https://github.com/intelsdi-x/snap-plugin-collector-ethtool/releases) page. Download the plugin from the latest release and load it into `snapd` (`/opt/snap/plugins` is the default location for Snap packages).
 
 #### To build the plugin binary:
 
@@ -100,7 +100,7 @@ See all available metrics:
 $ snapctl metric list
 ```
 
-Download an [example task file](https://github.com/intelsdi-x/snap-plugin-collector-ethtool/blob/master/examples/tasks/) and load it:
+Download an [example task file](examples/tasks/ethtool-file.json) and load it:
 ```
 $ curl -sfLO https://raw.githubusercontent.com/intelsdi-x/snap-plugin-collector-ethtool/master/examples/tasks/ethtool-file.json
 $ snapctl task create -t ethtool-file.json
