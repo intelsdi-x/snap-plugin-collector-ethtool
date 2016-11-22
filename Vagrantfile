@@ -12,13 +12,13 @@ Vagrant.configure(2) do |config|
       system.vm.box = "boxcutter/#{os}"
 
       $script = <<SCRIPT
-curl -sfL https://raw.githubusercontent.com/intelsdi-x/snap-docker/master/install_snap | sudo bash
-curl -sfL https://raw.githubusercontent.com/intelsdi-x/snap-docker/master/snapd.conf -o /etc/snap/snapd.conf
+curl -sfL https://raw.githubusercontent.com/intelsdi-x/snap-docker/master/init_snap | sudo bash
+curl -sfL https://raw.githubusercontent.com/intelsdi-x/snap-docker/master/snapteld.conf -o /etc/snap/snapteld.conf
 
 curl -sfL https://s3-us-west-2.amazonaws.com/snap.ci.snap-telemetry.io/plugins/snap-plugin-collector-ethtool/master/latest/linux/x86_64/snap-plugin-collector-ethtool -o /opt/snap/plugins/snap-plugin-collector-ethtool
 curl -sfL https://s3-us-west-2.amazonaws.com/snap.ci.snap-telemetry.io/plugins/snap-plugin-publisher-file/master/latest/linux/x86_64/snap-plugin-publisher-file -o /opt/snap/plugins/snap-plugin-publisher-file
 
-sudo /opt/snap/bin/snapd -t 0 -l 1 &
+sudo /opt/snap/sbin/snapteld -t 0 -l 1 &
 echo 'snap provision complete'
 SCRIPT
 
