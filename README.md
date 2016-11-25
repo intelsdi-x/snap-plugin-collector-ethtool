@@ -37,7 +37,7 @@ All OSs currently supported by plugin:
 ## Installation
 #### Download the plugin binary:
 
-You can get the pre-built binaries for your OS and architecture from the plugin's [GitHub Releases](https://github.com/intelsdi-x/snap-plugin-collector-ethtool/releases) page. Download the plugin from the latest release and load it into `snapd` (`/opt/snap/plugins` is the default location for Snap packages).
+You can get the pre-built binaries for your OS and architecture from the plugin's [GitHub Releases](https://github.com/intelsdi-x/snap-plugin-collector-ethtool/releases) page. Download the plugin from the latest release and load it into `snapteld` (`/opt/snap/plugins` is the default location for Snap packages).
 
 #### To build the plugin binary:
 
@@ -84,26 +84,26 @@ Example of running Snap ethtool collector and writing data to file.
 Ensure [Snap daemon is running](https://github.com/intelsdi-x/snap#running-snap):
 * initd: `service snap-telemetry start`
 * systemd: `systemctl start snap-telemetry`
-* command line: `snapd -l 1 -t 0 &`
+* command line: `snapteld -l 1 -t 0 &`
 
 Download and load Snap plugins:
 ```
 $ wget http://snap.ci.snap-telemetry.io/plugins/snap-plugin-collector-ethtool/latest/linux/x86_64/snap-plugin-collector-ethtool
 $ wget http://snap.ci.snap-telemetry.io/plugins/snap-plugin-publisher-file/latest/linux/x86_64/snap-plugin-publisher-file
 $ chmod 755 snap-plugin-*
-$ snapctl plugin load snap-plugin-collector-ethtool
-$ snapctl plugin load snap-plugin-publisher-file
+$ snaptel plugin load snap-plugin-collector-ethtool
+$ snaptel plugin load snap-plugin-publisher-file
 ```
 
 See all available metrics:
 ```
-$ snapctl metric list
+$ snaptel metric list
 ```
 
 Download an [example task file](examples/tasks/ethtool-file.json) and load it:
 ```
 $ curl -sfLO https://raw.githubusercontent.com/intelsdi-x/snap-plugin-collector-ethtool/master/examples/tasks/ethtool-file.json
-$ snapctl task create -t ethtool-file.json
+$ snaptel task create -t ethtool-file.json
 Using task manifest to create task
 Task created
 ID: 480323af-15b0-4af8-a526-eb2ca6d8ae67
@@ -111,16 +111,16 @@ Name: Task-480323af-15b0-4af8-a526-eb2ca6d8ae67
 State: Running
 ```
 
-See realtime output from `snapctl task watch <task_id>` (CTRL+C to exit)
+See realtime output from `snaptel task watch <task_id>` (CTRL+C to exit)
 ```
-$ snapctl task watch 480323af-15b0-4af8-a526-eb2ca6d8ae67
+$ snaptel task watch 480323af-15b0-4af8-a526-eb2ca6d8ae67
 ```
 
 This data is published to a file `/tmp/published_netstats` per task specification
 
 Stop task:
 ```
-$ snapctl task stop 480323af-15b0-4af8-a526-eb2ca6d8ae67
+$ snaptel task stop 480323af-15b0-4af8-a526-eb2ca6d8ae67
 Task stopped:
 ID: 480323af-15b0-4af8-a526-eb2ca6d8ae67
 ```
