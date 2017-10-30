@@ -2,7 +2,7 @@ hash: 9649b18089c5817c38642090adafd26deaeeb3be276a3942b6b082fb8ad70829
 updated: 2016-10-18T13:52:36.423126783-07:00
 imports:
 - name: github.com/intelsdi-x/snap
-  version: 32e53562ed2c242c2d8aa83e574a08ea5feef0bd
+  version: 79e1dd457d77c985491c2f4746cbc425fb3dc2dd
   subpackages:
   - control/plugin
   - control/plugin/cpolicy
@@ -17,7 +17,7 @@ imports:
   - scheduler/wmap
 - name: github.com/robfig/cron
   version: 32d9c273155a0506d27cf73dd1246e86a470997e
-- name: github.com/Sirupsen/logrus
+- name: github.com/sirupsen/logrus
   version: be52937128b38f1d99787bb476c789e2af1147f1
 - name: golang.org/x/sys
   version: 8f0908ab3b2457e2e15403d3697c9ef5cb4b57a9
